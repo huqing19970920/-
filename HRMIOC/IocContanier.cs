@@ -17,7 +17,7 @@ namespace HRMIOC
         {
             UnityContainer ioc = new UnityContainer();
             ExeConfigurationFileMap ecfm = new ExeConfigurationFileMap();
-            ecfm.ExeConfigFilename = @"C:\Users\Administrator\Documents\visual studio 2015\Projects\HRMSys\HRMUI\Unity.config";
+            ecfm.ExeConfigFilename = @"E:\HR项目\HRMSys\HRMUI\Unity.config";
             Configuration cf = ConfigurationManager.OpenMappedExeConfiguration(ecfm, ConfigurationUserLevel.None);
             UnityConfigurationSection ucs = (UnityConfigurationSection)cf.GetSection("unity");
             ioc.LoadConfiguration(ucs, XmlName);
