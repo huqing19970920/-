@@ -1,0 +1,67 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/vue.js"></script>
+</head>
+<body>
+    <div id="All">
+        @Html.ActionLink("添加", "Create")
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>编号</th>
+                <th>车类型</th>
+                <th>操作</th>
+            </tr>
+            <tr v-for="i in dt">
+                <td>{{i.Id}}</td>
+                <td>{{i.CName}}</td>
+                <td>
+                    <a class="btn btn-default" v-bind:href="['/Test/Edit/'+i.Id]">修改</a>
+                    <a v-on:click="Del([i.Id])" class="btn btn-warning">删除</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: "#All",
+            data: {
+                dt: null
+            },
+            methods: {
+                load: function () {
+                    var t = this;
+                    $.ajax({
+                        url: "/Test/FillTable",
+                        type: "post",
+                        data: "",
+                        success: function (msg) {
+                            var dd = eval("(" + msg + ")");
+                            t.dt = dd;
+                        }
+                    });
+                },
+                Del: function (obj) {
+                    if (confirm("Sure?")) {
+                        window.location.href = "/Test/Delete/" + obj;
+                    }
+                }
+            },
+            created: function () {
+                this.load();
+            }
+        });
+    </script>
+</body>
+</html>
